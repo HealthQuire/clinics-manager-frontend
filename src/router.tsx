@@ -1,7 +1,7 @@
-import { createBrowserRouter } from "react-router-dom"
-import HomePage from "./pages/home-page"
-import RouterWrapper from "./components/router-wrapper/router-wrapper"
-
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import HomePage from "./pages/home-page";
+import RouterWrapper from "./components/router-wrapper/router-wrapper";
+import SignIn from "./pages/auth/sign-in";
 
 const router = createBrowserRouter([
     {
@@ -10,10 +10,20 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "",
-                element: <HomePage />
-            }
-        ]
-    }
-])
+                element: <HomePage />,
+            },
+            {
+                path: "auth",
+                element: <Outlet />,
+                children: [
+                    {
+                        path: "signin",
+                        element: <SignIn />,
+                    },
+                ],
+            },
+        ],
+    },
+]);
 
-export default router
+export default router;
