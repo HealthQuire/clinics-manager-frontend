@@ -1,14 +1,16 @@
-import { Outlet } from "react-router-dom";
-import Header from "../header";
-import { RouterWrapperDiv } from "./styles";
-import Footer from "../footer";
+import { Outlet } from 'react-router-dom';
+import Nav from '../nav/nav.tsx';
+import { BodyContainer, RouterContainer, RouterWrapperDiv } from './styles';
 
 export default function RouterWrapper() {
-  return (
-    <RouterWrapperDiv>
-        <Header/>
-        <Outlet/>
-        <Footer/>
-    </RouterWrapperDiv>
-  )
+    return (
+        <RouterContainer>
+            <RouterWrapperDiv>
+                <Nav />
+                <BodyContainer>
+                    <Outlet />
+                </BodyContainer>
+            </RouterWrapperDiv>
+        </RouterContainer>
+    );
 }

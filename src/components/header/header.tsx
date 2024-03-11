@@ -1,10 +1,7 @@
-import {HeaderWrapper} from "./styles";
+import { HeaderWrapper } from './styles.ts';
 
-export default function Header() {
+const Header = () => {
+    return <HeaderWrapper></HeaderWrapper>;
+};
 
-  return (
-    <HeaderWrapper>
-        Header
-    </HeaderWrapper>
-  );
-}
+export default Header;

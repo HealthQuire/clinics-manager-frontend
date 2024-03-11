@@ -1,17 +1,19 @@
-import { RouterProvider } from "react-router-dom"
-import styled from "styled-components"
-import router from "./router"
+import styled from 'styled-components';
+import router from './router.tsx';
+import { RouterProvider } from 'react-router-dom';
+import './App.css';
 
 const AppWrapper = styled.div`
-    background-color: ${props => props.theme.colors.bgPrimary};
-    color: ${props => props.theme.colors.textPrimary};
-    min-height: 100vh;
-`
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+`;
 
-export default function App() {
+function App() {
     return (
         <AppWrapper>
             <RouterProvider router={router} />
         </AppWrapper>
-    )
+    );
 }
+
+export default App;
