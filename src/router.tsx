@@ -1,42 +1,71 @@
-import { createBrowserRouter } from 'react-router-dom';
-import RouterWrapper from './components/router-wrapper/router-wrapper';
-import LoginPage from './pages/login-page/login-page.tsx';
-import HomePage from './pages/home-page/home-page.tsx';
-import AppointmentPage from './pages/appointment-page/appointment-page.tsx';
-import TimetablePage from './pages/timetable-page/timetable-page.tsx';
-import { AppointmentHistoryPage } from './pages/appointment-history/appointment-history.tsx';
+import { createBrowserRouter } from "react-router-dom";
+import RouterWrapper from "./components/router-wrapper/router-wrapper";
+import LoginPage from "./pages/login-page/login-page.tsx";
+import HomePage from "./pages/home-page/home-page.tsx";
+import ManageDoctors from "./pages/manage-doctors/manage-doctors.tsx";
+import ManageCustomers from "./pages/manage-customers/manage-customers.tsx";
+import ManageTimecells from "./pages/manage-timecells/manage-timecells.tsx";
+
+const ProtectedRoute = ({ children }) => {
+    const res = localStorage.getItem("doctorid");
+    if (!res) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return children;
+};
 
 const router = createBrowserRouter([
     {
-        path: '/login',
-        element: <LoginPage />
+        path: "/login",
+        element: <LoginPage />,
     },
     {
-        path: '/',
-        element: <RouterWrapper />,
+        path: "/",
+        element: (
+            <ProtectedRoute>
+                <RouterWrapper />
+            </ProtectedRoute>
+        ),
         children: [
             {
-                path: '',
-                element: <HomePage />
+                path: "",
+                element: (
+                    <ProtectedRoute>
+                        <HomePage />
+                    </ProtectedRoute>
+                ),
             },
             {
-                path: 'appointment/:timecellid',
-                element: <AppointmentPage />
+                path: "manage-doctors/",
+                element: (
+                    <ProtectedRoute>
+                        <ManageDoctors />
+                    </ProtectedRoute>
+                ),
             },
             {
-                path: 'appointment-history/',
-                element: <AppointmentHistoryPage />
+                path: "manage-customers/",
+                element: (
+                    <ProtectedRoute>
+                        <ManageCustomers />
+                    </ProtectedRoute>
+                ),
             },
             {
-                path: 'timetable/',
-                element: <TimetablePage />
+                path: "manage-timecells/",
+                element: (
+                    <ProtectedRoute>
+                        <ManageTimecells />
+                    </ProtectedRoute>
+                ),
             },
             {
-                path: 'documentation',
-                element: 'Sorry... Not implemented yet'
-            }
-        ]
-    }
+                path: "documentation",
+                element: "Sorry... Not implemented yet",
+            },
+        ],
+    },
 ]);
 
 export default router;
