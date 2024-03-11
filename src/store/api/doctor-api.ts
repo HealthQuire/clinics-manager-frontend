@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getAccessToken } from '../../utils/auth.ts';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getAccessToken } from "../../utils/auth.ts";
 
 export interface IDoctor {
     _id: string;
@@ -18,7 +18,7 @@ export interface IDoctorBody {
     email: string;
     password: string;
     phone?: string;
-    avatarURL?: string;
+    avatarUrl?: string;
     medcentreid: string;
     firstname: string;
     lastname: string;
@@ -30,63 +30,66 @@ export interface IDoctorBody {
 }
 
 export const doctorApi = createApi({
-    reducerPath: 'DOCTOR_API',
+    reducerPath: "DOCTOR_API",
     baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_API_URL + '/doctor',
+        baseUrl: import.meta.env.VITE_API_URL + "/doctor",
         prepareHeaders: (headers) => {
-            headers.set('Authorization', getAccessToken());
+            headers.set("Authorization", getAccessToken());
             return headers;
-        }
+        },
     }),
-    tagTypes: ['DOCTOR'],
+    tagTypes: ["DOCTOR"],
     endpoints: (builder) => ({
         getDoctors: builder.query<IDoctor[], void>({
-            query: () => '/',
-            providesTags: ['DOCTOR']
+            query: () => "/",
+            providesTags: ["DOCTOR"],
         }),
 
         getCurrentDoctor: builder.query<IDoctor, void>({
-            query: () => '/' + localStorage.getItem('doctorid'),
-            providesTags: ['DOCTOR']
+            query: () => "/" + localStorage.getItem("doctorid"),
+            providesTags: ["DOCTOR"],
         }),
 
         getDoctorById: builder.query<IDoctor, string>({
-            query: (id: string) => '/' + id,
-            providesTags: ['DOCTOR']
+            query: (id: string) => "/" + id,
+            providesTags: ["DOCTOR"],
         }),
 
         postDoctor: builder.mutation<IDoctor, IDoctorBody>({
             query(body: Partial<IDoctor>) {
                 return {
-                    url: `/`,
-                    method: 'POST',
-                    body
+                    url: `/create/`,
+                    method: "POST",
+                    body,
                 };
             },
-            invalidatesTags: ['DOCTOR']
+            invalidatesTags: ["DOCTOR"],
         }),
 
-        patchDoctor: builder.mutation<IDoctor, { update: Partial<IDoctor>; id: string }>({
+        patchDoctor: builder.mutation<
+            IDoctor,
+            { update: Partial<IDoctor>; id: string }
+        >({
             query(body: { update: Partial<IDoctor>; id: string }) {
                 return {
                     url: `/${body.id}`,
-                    method: 'PATCH',
-                    body: body.update
+                    method: "PATCH",
+                    body: body.update,
                 };
             },
-            invalidatesTags: ['DOCTOR']
+            invalidatesTags: ["DOCTOR"],
         }),
 
         deleteDoctor: builder.mutation<IDoctor, { id: string }>({
             query(body: { id: string }) {
                 return {
                     url: `/${body.id}`,
-                    method: 'DELETE'
+                    method: "DELETE",
                 };
             },
-            invalidatesTags: ['DOCTOR']
-        })
-    })
+            invalidatesTags: ["DOCTOR"],
+        }),
+    }),
 });
 
 export const {
@@ -95,5 +98,5 @@ export const {
     usePatchDoctorMutation,
     usePostDoctorMutation,
     useDeleteDoctorMutation,
-    useGetCurrentDoctorQuery
+    useGetCurrentDoctorQuery,
 } = doctorApi;

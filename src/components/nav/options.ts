@@ -1,19 +1,29 @@
-import { faHospital, faUserDoctor, faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import {
+    faHospital,
+    faUserDoctor,
+    faTable,
+    faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const OptionContainers = [
     {
-        to: '/',
+        to: "/",
         icon: faHospital,
-        text: 'Home'
+        text: "Home",
     },
     {
-        to: '/timetable',
-        icon: faBriefcase,
-        text: 'Time Table'
-    },
-    {
-        to: '/appointment-history',
+        to: "/manage-doctors",
         icon: faUserDoctor,
-        text: 'Appointments'
-    }
+        text: "Manage doctors",
+    },
+    {
+        to: "/manage-customers",
+        icon: faUser,
+        text: "Manage patients",
+    },
+    {
+        to: "/manage-timecells",
+        icon: faTable,
+        text: "Manage timetable",
+    },
 ];

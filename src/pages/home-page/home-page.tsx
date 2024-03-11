@@ -18,7 +18,11 @@ import { useGetTodayDoctorTimeCellsQuery } from "../../store/api/timecell-api.ts
 import { Preloader } from "../../components/preloader/preloader.tsx";
 import capitalize from "../../utils/capitalize.ts";
 import { useGetCurrentDoctorQuery } from "../../store/api/doctor-api.ts";
-import { faUser, faTable, faHistory } from "@fortawesome/free-solid-svg-icons";
+import {
+    faUser,
+    faTable,
+    faUserDoctor,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HomePage = () => {
@@ -41,10 +45,10 @@ const HomePage = () => {
                 <QuickActionsButton
                     color1="#8E7AB5"
                     color2="#B784B7"
-                    to="/timetable"
+                    to="/manage-doctors"
                 >
                     <QuickActionsButtonIcon>
-                        <FontAwesomeIcon icon={manage} size="3x" />
+                        <FontAwesomeIcon icon={faUserDoctor} size="3x" />
                     </QuickActionsButtonIcon>
                     <QuickActionsButtonText>
                         Manage doctors
@@ -53,50 +57,29 @@ const HomePage = () => {
                 <QuickActionsButton
                     color1="#E493B3"
                     color2="#EEA5A6"
-                    to="/appointment-history"
+                    to="/manage-customers"
                 >
                     <QuickActionsButtonIcon>
-                        <FontAwesomeIcon icon={faHistory} size="3x" />
+                        <FontAwesomeIcon icon={faUser} size="3x" />
                     </QuickActionsButtonIcon>
                     <QuickActionsButtonText>
-                        Manage customers
+                        Manage patients
+                    </QuickActionsButtonText>
+                </QuickActionsButton>
+                <QuickActionsButton
+                    color1="#93B3E4"
+                    color2="#A5A6EE"
+                    to="/manage-timecells"
+                >
+                    <QuickActionsButtonIcon>
+                        <FontAwesomeIcon icon={faTable} size="3x" />
+                    </QuickActionsButtonIcon>
+                    <QuickActionsButtonText>
+                        Manage timecells
                     </QuickActionsButtonText>
                 </QuickActionsButton>
             </QuickActionsWrapper>
-            <TodayAppointmentsWrapper>
-                <TodayAppointmentsTitle>
-                    Today appointments:
-                </TodayAppointmentsTitle>
-                <TodayAppointmentsList>
-                    {todayTimeCells.data ? (
-                        todayTimeCells.data.map((timeCell) => (
-                            <TodayAppointmentsListItem key={timeCell._id}>
-                                <FontAwesomeIcon icon={faUser} size="xl" />
-                                <TodayAppointmentsItemTitle>
-                                    {capitalize(timeCell.customer.lastname)}{" "}
-                                    {capitalize(timeCell.customer.firstname)}{" "}
-                                    {capitalize(
-                                        timeCell.customer.fathername ?? "-",
-                                    )}
-                                </TodayAppointmentsItemTitle>
-                                <TodayAppointmentsItemStatus>
-                                    {timeCell.time}
-                                </TodayAppointmentsItemStatus>
-                                <TodayAppointmentsItemComment>
-                                    Comment: {timeCell.comment}
-                                </TodayAppointmentsItemComment>
-                                <TodayAppointmentsItemButton
-                                    to={"appointment/" + timeCell._id}
-                                >
-                                    Create examination
-                                </TodayAppointmentsItemButton>
-                            </TodayAppointmentsListItem>
-                        ))
-                    ) : (
-                        <Preloader />
-                    )}
-                </TodayAppointmentsList>
-            </TodayAppointmentsWrapper>
+            <TodayAppointmentsWrapper></TodayAppointmentsWrapper>
         </HomePageWrapper>
     );
 };
