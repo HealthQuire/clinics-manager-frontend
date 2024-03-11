@@ -9,22 +9,28 @@ import {
     LoginPageWrapper,
 } from "./styles.ts";
 import { useState } from "react";
+import { Simulate } from "react-dom/test-utils";
+import submit = Simulate.submit;
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const onSubmit = () => {
+    const navigate = useNavigate();
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         // submit!
-        localStorage.setItem("doctorid", "12123");
+        event.preventDefault();
+        localStorage.setItem("doctorid", "65ed60c5018ab38eb252f952");
+        navigate("/");
     };
 
     return (
         <LoginPageWrapper>
             <LoginPageContainer>
                 <HeaderLogo />
-                <LoginForm>
+                <LoginForm onSubmit={onSubmit}>
                     <InputGroup>
                         <FormTextBox
                             value={login}
@@ -54,6 +60,7 @@ const LoginPage = () => {
                     </InputGroup>
 
                     <Button
+                        onClick={submit}
                         type="submit"
                         disabled={isLoading || !(login && password)}
                     >
