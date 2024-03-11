@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface ICustomer {
     _id: string;
@@ -25,69 +25,72 @@ export interface ICustomerBody {
 }
 
 const getAccessToken = (): string => {
-    const token = localStorage.getItem('access_token');
-    return token ? token : '';
+    const token = localStorage.getItem("access_token");
+    return token ? token : "";
 };
 
 export const customerApi = createApi({
-    reducerPath: 'CUSTOMER_API',
+    reducerPath: "CUSTOMER_API",
     baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_API_URL + '/customer',
+        baseUrl: import.meta.env.VITE_API_URL + "/customer",
         prepareHeaders: (headers) => {
-            headers.set('Authorization', getAccessToken());
+            headers.set("Authorization", getAccessToken());
             return headers;
-        }
+        },
     }),
-    tagTypes: ['CUSTOMER'],
+    tagTypes: ["CUSTOMER"],
     endpoints: (builder) => ({
         getCustomers: builder.query<ICustomer[], void>({
-            query: () => '/',
-            providesTags: ['CUSTOMER']
+            query: () => "/",
+            providesTags: ["CUSTOMER"],
         }),
 
         getCustomerById: builder.query({
-            query: (id: string) => '/' + id,
-            providesTags: ['CUSTOMER']
+            query: (id: string) => "/" + id,
+            providesTags: ["CUSTOMER"],
         }),
 
-        postAgent: builder.mutation<ICustomer, ICustomerBody>({
+        postCustomer: builder.mutation<ICustomer, ICustomerBody>({
             query(body: ICustomerBody) {
                 return {
-                    url: `/`,
-                    method: 'POST',
-                    body: body
+                    url: `/create/`,
+                    method: "POST",
+                    body: body,
                 };
             },
-            invalidatesTags: ['CUSTOMER']
+            invalidatesTags: ["CUSTOMER"],
         }),
 
-        patchAgent: builder.mutation<ICustomer, { update: Partial<ICustomer>; id: string }>({
+        patchAgent: builder.mutation<
+            ICustomer,
+            { update: Partial<ICustomer>; id: string }
+        >({
             query(body: { update: Partial<ICustomer>; id: string }) {
                 return {
                     url: `/${body.id}`,
-                    method: 'PATCH',
-                    body: body.update
+                    method: "PATCH",
+                    body: body.update,
                 };
             },
-            invalidatesTags: ['CUSTOMER']
+            invalidatesTags: ["CUSTOMER"],
         }),
 
         deleteCustomer: builder.mutation<ICustomer, { id: string }>({
             query(body: { id: string }) {
                 return {
                     url: `/${body.id}`,
-                    method: 'DELETE'
+                    method: "DELETE",
                 };
             },
-            invalidatesTags: ['CUSTOMER']
-        })
-    })
+            invalidatesTags: ["CUSTOMER"],
+        }),
+    }),
 });
 
 export const {
     useGetCustomersQuery,
     useGetCustomerByIdQuery,
-    usePostAgentMutation,
+    usePostCustomerMutation,
     usePatchAgentMutation,
-    useDeleteCustomerMutation
+    useDeleteCustomerMutation,
 } = customerApi;

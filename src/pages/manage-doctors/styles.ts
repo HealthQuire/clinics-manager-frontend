@@ -16,7 +16,7 @@ export const ManageDoctorsTitle = styled.h1`
 
 export const ManageDoctorsList = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 80%;
     margin: 64px;
 `;
@@ -98,6 +98,7 @@ export const ManageDoctorsFormButton = styled.input`
     cursor: pointer;
     transition: 0.3s;
     border-radius: 8px;
+    margin-top: 64px;
     &:hover {
         background-color: ${theme.colors.accentTwo};
     }

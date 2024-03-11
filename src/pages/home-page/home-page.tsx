@@ -4,19 +4,10 @@ import {
     QuickActionsButtonIcon,
     QuickActionsButtonText,
     QuickActionsWrapper,
-    TodayAppointmentsItemTitle,
-    TodayAppointmentsList,
-    TodayAppointmentsListItem,
-    TodayAppointmentsTitle,
     TodayAppointmentsWrapper,
-    TodayAppointmentsItemButton,
-    TodayAppointmentsItemComment,
-    TodayAppointmentsItemStatus,
     GreetingBlock,
 } from "./styles.ts";
-import { useGetTodayDoctorTimeCellsQuery } from "../../store/api/timecell-api.ts";
 import { Preloader } from "../../components/preloader/preloader.tsx";
-import capitalize from "../../utils/capitalize.ts";
 import { useGetCurrentDoctorQuery } from "../../store/api/doctor-api.ts";
 import {
     faUser,
@@ -26,17 +17,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HomePage = () => {
-    const todayTimeCells = useGetTodayDoctorTimeCellsQuery();
     const doctorData = useGetCurrentDoctorQuery();
 
     return (
         <HomePageWrapper>
             <GreetingBlock>
                 {doctorData.data ? (
-                    "Welcome back, " +
-                    doctorData.data.firstname +
-                    " " +
-                    doctorData.data.lastname
+                    "Welcome back, Manager Managerov!"
                 ) : (
                     <Preloader />
                 )}
