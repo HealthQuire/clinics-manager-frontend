@@ -17,17 +17,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HomePage = () => {
-    const doctorData = useGetCurrentDoctorQuery();
-
     return (
         <HomePageWrapper>
-            <GreetingBlock>
-                {doctorData.data ? (
-                    "Welcome back, Manager Managerov!"
-                ) : (
-                    <Preloader />
-                )}
-            </GreetingBlock>
+            <GreetingBlock>Welcome back, Manager Managerov!</GreetingBlock>
             <QuickActionsWrapper>
                 <QuickActionsButton
                     color1="#8E7AB5"
