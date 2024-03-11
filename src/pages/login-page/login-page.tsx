@@ -6,17 +6,18 @@ import {
     InputGroup,
     LoginForm,
     LoginPageContainer,
-    LoginPageWrapper
-} from './styles.ts';
-import { useState } from 'react';
+    LoginPageWrapper,
+} from "./styles.ts";
+import { useState } from "react";
 
 const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
+    const [error, setError] = useState("");
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
     const onSubmit = () => {
         // submit!
+        localStorage.setItem("doctorid", "12123");
     };
 
     return (
@@ -52,10 +53,13 @@ const LoginPage = () => {
                         <FormLabel htmlFor="password">Пароль:</FormLabel>
                     </InputGroup>
 
-                    <Button type="submit" disabled={isLoading || !(login && password)}>
-                        {isLoading ? 'Загрузка...' : 'Войти'}
+                    <Button
+                        type="submit"
+                        disabled={isLoading || !(login && password)}
+                    >
+                        {isLoading ? "Загрузка..." : "Войти"}
                     </Button>
-                    {error && <div style={{ color: 'red' }}>{error}</div>}
+                    {error && <div style={{ color: "red" }}>{error}</div>}
                 </LoginForm>
             </LoginPageContainer>
         </LoginPageWrapper>
