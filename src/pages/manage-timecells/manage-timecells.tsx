@@ -122,7 +122,7 @@ const ManageTimecellsPage = () => {
                                 : "show doctors selector"}
                         </h2>
                         <h3>
-                            {doctorId ?? "selected customer id:" + doctorId}
+                            {doctorId ? "selected doctor id: " + doctorId : ""}
                         </h3>
                         {showDoctors && (
                             <div>
@@ -147,11 +147,13 @@ const ManageTimecellsPage = () => {
                             onClick={() => setShowCustomers(!showCustomers)}
                         >
                             {showCustomers
-                                ? "hide doctors selector"
-                                : "show doctors selector"}
+                                ? "hide patient selector"
+                                : "show patient selector"}
                         </h2>
                         <h3>
-                            {customerId ?? "selected customer id:" + customerId}
+                            {customerId
+                                ? "selected customer id: " + customerId
+                                : ""}
                         </h3>
                         {showCustomers && (
                             <div>
